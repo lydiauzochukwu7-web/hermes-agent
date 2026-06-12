@@ -1,7 +1,13 @@
 # 🦋 Bluesky Platform Plugin
 
-> **Contributor:** [@lydiauzochukwu7-web](https://github.com/lydiauzochukwu7-web)
-> **Added in:** `feat(gateway): add Bluesky platform adapter plugin`
+<p align="center">
+  <img src="https://lydiamofunanya.com/assets/lydia_portrait_1779977764187-c8RzIoqn.png" alt="Lydia Uzochukwu — Contributor" width="160" style="border-radius: 50%;">
+</p>
+
+<p align="center">
+  <strong>Built by <a href="https://github.com/lydiauzochukwu7-web">Lydia Uzochukwu</a></strong><br>
+  <em>feat(gateway): add Bluesky platform adapter plugin</em>
+</p>
 
 This plugin connects **Hermes Agent** to [Bluesky](https://bsky.app) — the decentralized social network built on the AT Protocol. Once configured, Hermes monitors your Bluesky notifications and responds to mentions and thread replies directly in your feed.
 
