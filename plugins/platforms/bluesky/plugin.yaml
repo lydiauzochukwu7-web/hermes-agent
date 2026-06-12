@@ -1,0 +1,35 @@
+name: bluesky-platform
+label: Bluesky
+kind: platform
+version: 1.0.0
+description: >
+  Bluesky gateway adapter for Hermes Agent.
+  Connects to Bluesky and relays mentions/replies in your notification feed
+  to/from the Hermes agent. Zero external dependencies - uses standard library HTTP clients.
+author: Nous Research
+requires_env:
+  - name: BLUESKY_HANDLE
+    description: "Your Bluesky handle (e.g. username.bsky.social)"
+    prompt: "Bluesky handle"
+    password: false
+  - name: BLUESKY_PASSWORD
+    description: "Your Bluesky App Password (generate in Settings -> App Passwords)"
+    prompt: "Bluesky App Password"
+    password: true
+optional_env:
+  - name: BLUESKY_POLL_INTERVAL
+    description: "Poll interval in seconds for notifications (default: 10)"
+    prompt: "Poll interval (seconds)"
+    password: false
+  - name: BLUESKY_ALLOWED_USERS
+    description: "Comma-separated DIDs or handles allowed to talk to the bot (empty = deny all except if allow-all is set)"
+    prompt: "Allowed handles/DIDs (comma-separated)"
+    password: false
+  - name: BLUESKY_ALLOW_ALL_USERS
+    description: "Allow anyone on Bluesky to talk to the bot (true/false, default: false)"
+    prompt: "Allow all users? (true/false)"
+    password: false
+  - name: BLUESKY_HOME_CHANNEL
+    description: "Default post URI or feed identifier for cron / notification delivery"
+    prompt: "Home channel / post URI (or empty)"
+    password: false
