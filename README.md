@@ -21,7 +21,7 @@ Use any model you want — [Nous Portal](https://portal.nousresearch.com), [Open
 
 <table>
 <tr><td><b>A real terminal interface</b></td><td>Full TUI with multiline editing, slash-command autocomplete, conversation history, interrupt-and-redirect, and streaming tool output.</td></tr>
-<tr><td><b>Lives where you do</b></td><td>Telegram, Discord, Slack, WhatsApp, Signal, and CLI — all from a single gateway process. Voice memo transcription, cross-platform conversation continuity.</td></tr>
+<tr><td><b>Lives where you do</b></td><td>Telegram, Discord, Slack, WhatsApp, Signal, Bluesky, and CLI — all from a single gateway process. Voice memo transcription, cross-platform conversation continuity.</td></tr>
 <tr><td><b>A closed learning loop</b></td><td>Agent-curated memory with periodic nudges. Autonomous skill creation after complex tasks. Skills self-improve during use. FTS5 session search with LLM summarization for cross-session recall. <a href="https://github.com/plastic-labs/honcho">Honcho</a> dialectic user modeling. Compatible with the <a href="https://agentskills.io">agentskills.io</a> open standard.</td></tr>
 <tr><td><b>Scheduled automations</b></td><td>Built-in cron scheduler with delivery to any platform. Daily reports, nightly backups, weekly audits — all in natural language, running unattended.</td></tr>
 <tr><td><b>Delegates and parallelizes</b></td><td>Spawn isolated subagents for parallel workstreams. Write Python scripts that call tools via RPC, collapsing multi-step pipelines into zero-context-cost turns.</td></tr>
@@ -132,7 +132,7 @@ All documentation lives at **[hermes-agent.nousresearch.com/docs](https://hermes
 | [Quickstart](https://hermes-agent.nousresearch.com/docs/getting-started/quickstart)                 | Install → setup → first conversation in 2 minutes          |
 | [CLI Usage](https://hermes-agent.nousresearch.com/docs/user-guide/cli)                              | Commands, keybindings, personalities, sessions             |
 | [Configuration](https://hermes-agent.nousresearch.com/docs/user-guide/configuration)                | Config file, providers, models, all options                |
-| [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging)                | Telegram, Discord, Slack, WhatsApp, Signal, Home Assistant |
+| [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging)                | Telegram, Discord, Slack, WhatsApp, Signal, Bluesky, Home Assistant |
 | [Security](https://hermes-agent.nousresearch.com/docs/user-guide/security)                          | Command approval, DM pairing, container isolation          |
 | [Tools & Toolsets](https://hermes-agent.nousresearch.com/docs/user-guide/features/tools)            | 40+ tools, toolset system, terminal backends               |
 | [Skills System](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)              | Procedural memory, Skills Hub, creating skills             |
@@ -174,6 +174,47 @@ What gets imported:
 - **Workspace instructions** — AGENTS.md (with `--workspace-target`)
 
 See `hermes claw migrate --help` for all options, or use the `openclaw-migration` skill for an interactive agent-guided migration with dry-run previews.
+
+---
+
+## Bluesky Platform Plugin
+
+Hermes can connect to [Bluesky](https://bsky.app) (AT Protocol) as a messaging gateway, letting you interact with the agent directly from your Bluesky social feed.
+
+**What it does:**
+- Polls your Bluesky notifications and responds to mentions and thread replies
+- Sends replies as native AT Protocol posts, preserving thread structure (root + parent URI/CID)
+- Automatically strips Markdown formatting so posts render cleanly in the Bluesky UI
+- Extracts rich facets (clickable URLs and `@mention` links) from outgoing posts
+- Configurable polling interval, character limit (300 default), and cooldown between replies
+
+**Setup:**
+
+1. Install the plugin:
+   ```bash
+   hermes plugins install bluesky
+   ```
+2. Add your credentials to `~/.hermes/.env`:
+   ```env
+   BLUESKY_HANDLE=yourhandle.bsky.social
+   BLUESKY_APP_PASSWORD=your-app-password
+   ```
+   Generate an App Password at **Settings → Privacy and Security → App Passwords** on Bluesky.
+3. Start the gateway:
+   ```bash
+   hermes gateway start
+   ```
+
+Optional `config.yaml` settings:
+```yaml
+gateway:
+  bluesky:
+    polling_interval: 30      # seconds between notification polls (default: 30)
+    char_limit: 300           # max characters per post (default: 300)
+    reply_cooldown: 5         # seconds between consecutive replies (default: 5)
+```
+
+See [`plugins/platforms/bluesky/plugin.yaml`](plugins/platforms/bluesky/plugin.yaml) for the full configuration reference.
 
 ---
 
